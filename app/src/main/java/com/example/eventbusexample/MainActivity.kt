@@ -17,13 +17,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnClick = findViewById(R.id.btnClick)
-        btnClick!!.setOnClickListener(View.OnClickListener { //call eventBus when click button
+
+        //default EventBus call.............
+        eventToast(MessageToastEvent("hello"))
+
+        //button click EventBus call......
+        btnClick!!.setOnClickListener {
             EventBus.getDefault().post(MessageToastEvent("Button clicked by Palash"))
-        })
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun eventToast(messageToastEvent: MessageToastEvent) {
+    fun eventToast(messageToastEvent: MessageToastEvent)  {
         Toast.makeText(this@MainActivity, messageToastEvent.message, Toast.LENGTH_LONG).show()
     }
 
